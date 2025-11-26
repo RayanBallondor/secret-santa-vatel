@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secret Santa – Vatel M4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 12px;
+      color: #0f172a;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 20px 20px 22px;
+      position: relative;
+    }
+
+    .badge-vatel {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .logo-block {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .logo-block img {
+      width: 90px;
+      height: auto;
+      display: block;
+      margin: 0 auto 8px;
+      border-radius: 16px;
+      object-fit: contain;
+      background: #ffffff;
+    }
+
+    .title {
+      font-size: 22px;
+      margin: 0;
+      font-weight: 700;
+      color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title span {
+      font-size: 22px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #4b5563;
+      margin: 6px 0 0;
+    }
+
+    .info-row {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: #f9fafb;
+      color: #4b5563;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: #16a34a;
+      box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.25);
+    }
+
+    button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 26px rgba(127, 29, 29, 0.5);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(127, 29, 29, 0.6);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 9px 20px rgba(127, 29, 29, 0.5);
+    }
+
+    #message {
+      margin-top: 10px;
+      font-size: 13px;
+      min-height: 18px;
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: right;
+    }
+
+    .admin-hint {
+      margin-top: 6px;
+      font-size: 10px;
+      color: #9ca3af;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge-vatel">VATEL M4</div>
+
+    <div class="logo-block">
+      <!-- Mets un fichier vatel-logo.png dans le même dossier -->
+      <img src="vatel-logo.png" alt="Logo Vatel M4" />
+      <h1 class="title">
+        <span>🎄</span>
+        Secret Santa
+        <span>🎁</span>
+      </h1>
+      <p class="subtitle">
+        Inscris ton prénom pour découvrir à qui tu dois offrir un cadeau.
+      </p>
+    </div>
+
+    <div class="info-row">
+      <div class="pill">Personne ne se tire soi-même</div>
+      <div class="pill">Tirage unique et confidentiel</div>
+    </div>
+
+    <label for="nameInput">Ton prénom (orthographe exacte) :</label>
+    <input id="nameInput" type="text" placeholder="Exemple : Aurélien" />
+
+    <button id="btn" type="button" onclick="goToResult()">Obtenir mon Secret Santa</button>
+
+    <div id="message"></div>
+
+    <div class="footer">
+      Vatel M4 – Secret Santa interne
+    </div>
+
+    <!-- Petit texte discret, seulement visible pour toi si tu connais le truc -->
+    <div id="adminHint" class="admin-hint"></div>
+  </div>
+
+  <script>
+    // Liste des participants
+    const participants = [
+      "Camillia","Alban","Auguste","Louis","Gabriel","Grégoire","Eponine",
+      "Thomas","Jules E.","Lola","Sarah","Hedi","Inès","Isaure","Julie",
+      "Lou-ann","Aurélien","Margaux","Margot","Chloe","Mady","Camille",
+      "Claire","Maxime","Guillaume","Jean","Tantely","Jules V."
+    ];
+
+    // Correspondance fixe Secret Santa (personne ne se tire soi-même)
+    const assigned = {
+      "Camillia": "Mady",
+      "Alban": "Chloe",
+      "Auguste": "Grégoire",
+      "Louis": "Maxime",
+      "Gabriel": "Lou-ann",
+      "Grégoire": "Guillaume",
+      "Eponine": "Jules V.",
+      "Thomas": "Camillia",
+      "Jules E.": "Tantely",
+      "Lola": "Hedi",
+      "Sarah": "Camille",
+      "Hedi": "Lola",
+      "Inès": "Isaure",
+      "Isaure": "Jules E.",
+      "Julie": "Jean",
+      "Lou-ann": "Gabriel",
+      "Aurélien": "Alban",
+      "Margaux": "Louis",
+      "Margot": "Julie",
+      "Chloe": "Sarah",
+      "Mady": "Margaux",
+      "Camille": "Aurélien",
+      "Claire": "Eponine",
+      "Maxime": "Thomas",
+      "Guillaume": "Claire",
+      "Jean": "Inès",
+      "Tantely": "Margot",
+      "Jules V.": "Auguste"
+    };
+
+    // Protection : une seule consultation par appareil / navigateur
+    const STORAGE_KEY = "secret_santa_vatel_m4_done";
+
+    // Mode organisateur : si l'URL contient ?admin=1, on ne bloque pas
+    const paramsUrl = new URLSearchParams(window.location.search);
+    const IS_ADMIN = paramsUrl.get("admin") === "1";
+
+    const adminHint = document.getElementById("adminHint");
+    if (IS_ADMIN) {
+      adminHint.textContent = "Mode organisateur actif : la sécurité 1 consultation/appareil est désactivée sur cet onglet.";
+    }
+
+    function lockInterface(message) {
+      const input = document.getElementById("nameInput");
+      const btn = document.getElementById("btn");
+      const msg = document.getElementById("message");
+
+      if (message) {
+        msg.textContent = message;
+      }
+
+      input.disabled = true;
+      btn.disabled = true;
+    }
+
+    // Si ce n'est pas un admin et que quelqu'un a déjà consulté sur cet appareil, on bloque dès l'ouverture
+    if (!IS_ADMIN && localStorage.getItem(STORAGE_KEY) === "1") {
+      lockInterface(
+        "Tu as déjà consulté ton Secret Santa sur cet appareil. Une seule consultation est autorisée."
+      );
+    }
+
+    function goToResult() {
+      const input = document.getElementById("nameInput");
+      const name = input.value.trim();
+      const message = document.getElementById("message");
+
+      // Vérifie si déjà utilisé (au cas où)
+      if (!IS_ADMIN && localStorage.getItem(STORAGE_KEY) === "1") {
+        lockInterface(
+          "Tu as déjà consulté ton Secret Santa sur cet appareil. Une seule consultation est autorisée."
+        );
+        return;
+      }
+
+      if (!name) {
+        message.textContent = "Merci de saisir ton prénom.";
+        return;
+      }
+
+      if (!participants.includes(name)) {
+        message.textContent =
+          "Nom non reconnu. Vérifie l'orthographe (accents, majuscules) ou contacte l'organisateur.";
+        return;
+      }
+
+      const target = assigned[name];
+      if (!target) {
+        message.textContent =
+          "Erreur de configuration pour ce prénom. Contacte l'organisateur.";
+        return;
+      }
+
+      // On enregistre que cet appareil a déjà consulté, sauf en mode admin
+      if (!IS_ADMIN) {
+        localStorage.setItem(STORAGE_KEY, "1");
+      }
+
+      const params = new URLSearchParams();
+      params.set("to", target);
+      params.set("from", name);
+      if (IS_ADMIN) {
+        params.set("admin", "1"); // on propage l'info mode admin à la page résultat si un jour tu en as besoin
+      }
+      window.location.href = "result.html?" + params.toString();
+    }
+  </script>
+</body>
+</html>
